@@ -107,15 +107,15 @@ void brute_force(Item Items[], int n, int size) {
 }
 
 int main() {
-    const int N = 28, C = 30;
-    FILE *dane = fopen("./dane2.txt", "w");
-    srand(time(NULL));
-    fprintf(dane, "%d\n", C);
-    fprintf(dane, "%d\n", N);
-    for (int i = 0; i < N; i++) {
-        fprintf(dane, "%d %d\n", (rand() % 14) + 1, (rand() % 14) + 1);
-    }
-    fclose(dane);
+    // const int N = 28, C = 30;
+    // FILE *dane = fopen("./dane2.txt", "w");
+    // srand(time(NULL));
+    // fprintf(dane, "%d\n", C);
+    // fprintf(dane, "%d\n", N);
+    // for (int i = 0; i < N; i++) {
+    //     fprintf(dane, "%d %d\n", (rand() % 14) + 1, (rand() % 14) + 1);
+    // }
+    // fclose(dane);
 
     // FILE *fp = fopen("./dane.txt", "r");
     // int size;
@@ -126,7 +126,7 @@ int main() {
     // for (int i = 1; i < n + 1; i++) {
     //     fscanf(fp, "%d %d", &Items[i].value, &Items[i].weight);
     // }
-    FILE *fp = fopen("./dane2.txt", "r");
+    FILE *fp = fopen("./dane.txt", "r");
     int size;
     fscanf(fp, " %d", &size);
     int n;
@@ -137,14 +137,9 @@ int main() {
     }
     fclose(fp);
 
-    // Start measuring time
     struct timespec begin, end;
     clock_gettime(CLOCK_REALTIME, &begin);
-
-    dynamic(Items, n, size);
     brute_force(Items, n, size);
-
-    // Stop measuring time and calculate the elapsed time
     clock_gettime(CLOCK_REALTIME, &end);
     long seconds = end.tv_sec - begin.tv_sec;
     long nanoseconds = end.tv_nsec - begin.tv_nsec;
