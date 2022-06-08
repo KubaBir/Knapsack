@@ -107,7 +107,7 @@ void brute_force(Item Items[], int n, int size) {
 }
 
 int main() {
-    const int N = 25, C = 30;
+    const int N = 28, C = 30;
     FILE *dane = fopen("./dane2.txt", "w");
     srand(time(NULL));
     fprintf(dane, "%d\n", C);
@@ -136,10 +136,19 @@ int main() {
         fscanf(fp, "%d %d", &Items[i].value, &Items[i].weight);
     }
     fclose(fp);
-    clock_t start = clock();
+
+    // Start measuring time
+    struct timespec begin, end;
+    clock_gettime(CLOCK_REALTIME, &begin);
+
     dynamic(Items, n, size);
     brute_force(Items, n, size);
-    // sleep(4);
-    clock_t end = clock();
-    printf("Time: %d", end - start);
+
+    // Stop measuring time and calculate the elapsed time
+    clock_gettime(CLOCK_REALTIME, &end);
+    long seconds = end.tv_sec - begin.tv_sec;
+    long nanoseconds = end.tv_nsec - begin.tv_nsec;
+    double elapsed = seconds + nanoseconds * 1e-9;
+
+    printf("Time measured: %.3f seconds.\n", elapsed);
 }
